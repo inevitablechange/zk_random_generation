@@ -1,0 +1,6 @@
+[package]
+name = "noir_age_test"
+type = "bin"
+authors = [""]
+
+[dependencies]
