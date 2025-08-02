@@ -1,5 +1,11 @@
-import { Provider, ethers, formatEther, getAddress } from "ethers";
+import { ethers, formatEther, getAddress } from "ethers";
 import React, { useEffect, useState } from "react";
+
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
 
 const useMetaMask = () => {
   const [account, setAccount] = useState<string>("");
@@ -84,7 +90,14 @@ const useMetaMask = () => {
     }
   }
 
-  return { account, balance, chainId, provider, connect };
+  async function disconnect() {
+    setAccount("");
+    setBalance("0");
+    setProvider(null);
+    setChainId(0);
+  }
+
+  return { account, balance, chainId, provider, connect, disconnect };
 };
 
 export default useMetaMask;

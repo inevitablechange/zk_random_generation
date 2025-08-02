@@ -1,5 +1,5 @@
 [package]
-name = "noir_age_test"
+name = "noir_random_number"
 type = "bin"
 authors = [""]
 

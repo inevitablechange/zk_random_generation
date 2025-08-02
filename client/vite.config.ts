@@ -1,31 +1,25 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
-import { NodeModulesPolyfillPlugin } from "@esbuild-plugins/node-modules-polyfill";
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      buffer: "buffer",
+      crypto: "crypto-browserify",
       stream: "stream-browserify",
+      util: "util/",
     },
   },
+  define: {
+    "process.env": {},
+    global: "globalThis",
+  },
   optimizeDeps: {
-    include: ["buffer"],
     esbuildOptions: {
       define: {
         global: "globalThis",
       },
-      plugins: [
-        NodeGlobalsPolyfillPlugin({
-          buffer: true,
-        }),
-        NodeModulesPolyfillPlugin(),
-      ],
     },
   },
-  define: {
-    global: "globalThis",
-  },
+  assetsInclude: ["**/*.wasm"], // wasm 파일을 에셋으로 포함시키도록 명시
 });
